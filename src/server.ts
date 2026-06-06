@@ -4,10 +4,13 @@ import { PORT } from './config/env.js';
 
 async function startServer() {
     await connectDatabase();
-    app.listen(PORT, () => {
-        console.log(`[server]: Running on port ${PORT}`)
+    app.listen(PORT, async () => {
+        console.log(`[server]: Running on port ${PORT}`);
     });
 }
 
 
-startServer();
+startServer().catch((err) => {
+    console.error('[Server]: Failed to start', err);
+    process.exit(1);
+})
