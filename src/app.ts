@@ -3,7 +3,7 @@
 import express, { Express } from 'express';
 import { userRouter } from './routers/user.router.js';
 import { errorHandler } from './middlewares/error-handler.js';
-import { ApiError } from './utils/api-error.js';
+import { routeNotFound } from './middlewares/route-not-found.js';
 
 const app: Express = express();
 
@@ -25,7 +25,7 @@ app.get('/health', (_req, res) => {
 // Express router based routes
 app.use('/api/users', userRouter); // if the route starts with /users, userRouter will handle it
 
-
+app.use(routeNotFound);
 // at the last we mention our error handling middleware
 app.use(errorHandler);
 export { app };
