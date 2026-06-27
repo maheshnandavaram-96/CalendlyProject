@@ -1,6 +1,8 @@
 // Configures the setting for the express app object
 
 import express, { Express } from 'express';
+import { eventTypeRouter } from './routers/event-type.router.js';
+import { publicEventRouter } from './routers/public-event.router.js';
 import { userRouter } from './routers/user.router.js';
 import { errorHandler } from './middlewares/error-handler.js';
 import { routeNotFound } from './middlewares/route-not-found.js';
@@ -24,6 +26,8 @@ app.get('/health', (_req, res) => {
 
 // Express router based routes
 app.use('/api/users', userRouter); // if the route starts with /users, userRouter will handle it
+app.use('/api/event-types', eventTypeRouter);
+app.use('/api/public', publicEventRouter);
 
 app.use(routeNotFound);
 // at the last we mention our error handling middleware
